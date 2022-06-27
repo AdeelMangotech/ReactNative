@@ -3,11 +3,12 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './src/screen/Home';
-import AboutScreen from './src/screen/About';
-import SplashScreen from './src/screen/Splash';
-
 import RNBootSplash from "react-native-bootsplash";
+
+//* import components
+import UserLogin from './src/screen/UserLogin';
+import UserSignup from './src/screen/UserSignup';
+import { StatusBar } from 'react-native';
 
 
 
@@ -28,14 +29,12 @@ function App() {
   
   return (
     <NavigationContainer>
+      <StatusBar barStyle="dark-content" backgroundColor = "#FF9000"/>
       <Stack.Navigator>
-        {/* {hide && 
-        <Stack.Screen options={{
-    headerShown: false
-}} name="Splash" component={SplashScreen} />
-} */}
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="Login" options={{
+          headerShown:false}} 
+          component={UserLogin} />
+        <Stack.Screen name="Register" component={UserSignup} />
       </Stack.Navigator>
     </NavigationContainer>
   );

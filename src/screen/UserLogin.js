@@ -1,26 +1,50 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView, Image, StatusBar, SafeAreaView, ImageBackground } from "react-native";
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import auth from '@react-native-firebase/auth';
+import { AccessToken, LoginManager } from "react-native-fbsdk-next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../context/AuthContext";
 
 
 export default function UserLogin({ navigation }) {
     const [userEmail, setUserEmail] = useState("")
     const [userPassword, setUserPassword] = useState("")
 
-    // const login = () => {
-    //     signInWithEmailAndPassword(auth, userEmail, userPassword)
-    //         .then((res) => {
-    //             console.log(res.user.uid)
-    //             dispatch(setUid({
-    //                 uID: res.user.uid
-    //             }))
-    //             setUserEmail("")
-    //             setUserPassword("")
-    //             navigation.navigate('Map')
-    //         })
-    //         .catch((err) => {
-    //             Alert.alert(err.message)
-    //         })
-    // }
+    const {signIn} = useContext(AuthContext)
+
+    const onFacebookButtonPress = async () => {
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+
+      if (result.isCancelled) {
+        throw 'User cancelled the login process';
+      }
+
+      const data = await AccessToken.getCurrentAccessToken();
+
+      if (!data) {
+        throw 'Something went wrong obtaining access token';
+      }
+
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data.accessToken,
+      );
+
+      let userData = await auth().signInWithCredential(facebookCredential)
+      try {
+      await AsyncStorage.setItem(
+        "user",
+        JSON.stringify(userData["user"])
+      );
+      signIn(userData["user"])
+    } catch (error) {
+      console.log("🚀 ~ file: UserLogin.js ~ line 41 ~ _storeData= ~ error", error)
+    }
+      console.log("🚀 ~ file: UserLogin.js ~ line 32 ~ onFacebookButtonPress ~ userData", userData)
+    };
+
     return (
         <SafeAreaView style={styles.viewContainer}>
         <Image
@@ -61,7 +85,9 @@ export default function UserLogin({ navigation }) {
                     source={require('../assets/googleLogo.png')}
                     />
                     </TouchableOpacity>      
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                  onPress={() => onFacebookButtonPress().then(() => console.log('Signed in with Facebook!'))}
+                  >
                     <Image 
                     style={styles.authLogo}
                     source={require('../assets/facebookLogo.png')}

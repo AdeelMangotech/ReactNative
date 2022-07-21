@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SecondProject</string>
+    
+<string name="facebook_app_id">1666377383732329</string>
+<string name="fb_login_protocol_scheme">fb1234</string>
+<string name="facebook_client_token">7c65793ad4d402b7f3e5e8b3c22af81b</string>
+
+
 </resources>

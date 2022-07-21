@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "530751729990",
+    "project_id": "tekversedigital",
+    "storage_bucket": "tekversedigital.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530751729990:android:deafc1e3d5febf00aeb547",
+        "android_client_info": {
+          "package_name": "com.secondproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530751729990-ud5t10d3va5k4ohj42cap0abm8eg4aq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUNNqbnRf_NfOs_kCnkg1OQEfjon2LvmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530751729990-ud5t10d3va5k4ohj42cap0abm8eg4aq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
